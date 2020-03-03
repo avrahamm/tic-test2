@@ -29,6 +29,18 @@ class Game
 
     public function isMoveLegal($row, $col)
     {
+        // added dimensions check
+        return $this->areDimensionsLegal($row,$col) &&
+            $this->isCellEmpty($row, $col);
+    }
+
+    public function areDimensionsLegal($row, $col)
+    {
+        return $this->board->areDimensionsLegal($row, $col);
+    }
+
+    public function isCellEmpty($row, $col)
+    {
         return Board::NOTHING == $this->board->getSquare($row, $col);
     }
 

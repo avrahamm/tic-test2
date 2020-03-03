@@ -44,6 +44,11 @@ class Board
         }
     }
 
+    public function areDimensionsLegal($row, $col)
+    {
+        return ( ($row >= 0 && $row < 3) && ($col >= 0 && $col < 3));
+    }
+
     public function getSquare($row, $col)
     {
         return $this->grid[$row][$col];

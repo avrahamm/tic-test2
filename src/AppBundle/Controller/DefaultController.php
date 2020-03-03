@@ -31,9 +31,13 @@ class DefaultController extends Controller
     {
         $messages = array();
         $game = $this->get('app.model.game')->getGame();
+        // prevent move from another tab when game is over.
+        if($this->isGameOver($game)) {
+            return $this->redirectToRoute('end');
+        }
 
         if(!$game->isMoveLegal($row, $col)) {
-            $messages []= 'illegal move';
+            $messages []= " $row-$col move is illegal";
         } else {
             $game->makeMove($row, $col);
             $this->get('app.model.game')->setGame($game);
@@ -54,6 +58,8 @@ class DefaultController extends Controller
 
     public function endAction()
     {
+        //TODO! fix1: 'o' instead 'x' is shown in end message
+        // TODO! fix: second diagonal 'o' doesn't end the game.
         $message = '';
         $game = $this->get('app.model.game')->getGame();
 
