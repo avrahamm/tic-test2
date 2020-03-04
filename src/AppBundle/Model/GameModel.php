@@ -69,9 +69,9 @@ class GameModel
         return $game->serialize();
     }
 
-    public function startGame()
+    public function startGame($size = 3)
     {
-        $this->game->start();
+        $this->game->start($size);
         $this->storeGame();
     }
 }

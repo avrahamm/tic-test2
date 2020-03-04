@@ -22,9 +22,9 @@ class Game
     const STATE_WON = 3;
     const INFINITY_INDEX = 10000;
 
-    public function start()
+    public function start($size=3)
     {
-        $this->board = new Board();
+        $this->board = new Board($size);
         $this->currentPlayer = Board::X;
     }
 
@@ -132,6 +132,7 @@ class Game
     {
         $res = array(
             'grid' => $this->board->getGrid(),
+            'size' => $this->board->getSize(),
             'currentPlayer' => $this->currentPlayer
         );
 
@@ -142,6 +143,7 @@ class Game
     {
         $this->start();
         $data = json_decode($json, true);
+        $this->board->setSize($data['size']);
         $this->board->loadBoard($data['grid']);
         $this->currentPlayer = $data['currentPlayer'];
     }

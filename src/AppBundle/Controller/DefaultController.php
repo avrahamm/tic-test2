@@ -15,15 +15,16 @@ class DefaultController extends Controller
         );
     }
 
-    public function startAction()
+    public function startAction($size)
     {
-        $this->get('app.model.game')->startGame();
+        $this->get('app.model.game')->startGame($size);
         $game = $this->get('app.model.game')->getGame();
 
         return $this->render(
             'AppBundle:Default:start.html.twig', array(
             'grid' => $game->getBoard()->getGrid(),
             'currentPlayer' => $game->getCurrentPlayer(),
+            'size' => $size
         ));
     }
 
@@ -53,6 +54,7 @@ class DefaultController extends Controller
             'messages' => $messages,
             'grid' => $game->getBoard()->getGrid(),
             'currentPlayer' => $game->getCurrentPlayer(),
+            'size' => $game->getBoard()->getSize()
         ));
     }
 
@@ -81,6 +83,7 @@ class DefaultController extends Controller
             'AppBundle:Default:end.html.twig', array(
             'message' => $message,
             'grid' => $game->getBoard()->getGrid(),
+            'size' => $game->getBoard()->getSize()
         ));
     }
 

@@ -9,6 +9,6 @@
 
     {% include 'AppBundle:Board:board.html.twig' with grid %}
     {% include 'AppBundle:Board:currentPlayer.html.twig' with grid %}
-    {% include 'AppBundle:Board:controls.html.twig' %}
+    {{ include('AppBundle:Board:controls.html.twig', { 'size': size }) }}
 
 {% endblock body %}

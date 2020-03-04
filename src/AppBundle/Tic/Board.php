@@ -12,6 +12,7 @@ namespace AppBundle\Tic;
 class Board
 {
     private $grid;
+    private $size;
 
     const NOTHING = '';
     const O = 'o';
@@ -20,25 +21,24 @@ class Board
     /**
      * Board constructor.
      */
-    public function __construct()
+    public function __construct($size)
     {
+        $this->size = $size;
         $this->initGrid();
         $this->clear();
     }
 
     private function initGrid()
     {
-        $this->grid = array(
-            array(),
-            array(),
-            array(),
-        );
+        for($i = 0; $i < $this->size; $i++) {
+            $this->grid[] = array();
+        }
     }
 
     public function clear()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->size; $i++) {
+            for($j = 0; $j < $this->size; $j++) {
                 $this->setSquare($i, $j, self::NOTHING);
             }
         }
@@ -46,7 +46,7 @@ class Board
 
     public function areDimensionsLegal($row, $col)
     {
-        return ( ($row >= 0 && $row < 3) && ($col >= 0 && $col < 3));
+        return ( ($row >= 0 && $row < $this->size) && ($col >= 0 && $col < $this->size));
     }
 
     public function getSquare($row, $col)
@@ -62,8 +62,8 @@ class Board
 
     public function isFull()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->size; $i++) {
+            for($j = 0; $j < $this->size; $j++) {
                 if(self::NOTHING == $this->getSquare($i, $j)) {
                     return false;
                 }
@@ -74,8 +74,8 @@ class Board
 
     public function isEmpty()
     {
-        for($i = 0; $i < 3; $i++) {
-            for($j = 0; $j < 3; $j++) {
+        for($i = 0; $i < $this->size; $i++) {
+            for($j = 0; $j < $this->size; $j++) {
                 if(self::NOTHING != $this->getSquare($i, $j)) {
                     return false;
                 }
@@ -92,7 +92,7 @@ class Board
     public function isBoardWon()
     {
         $res = false;
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < $this->size; $i++) {
             $res = $res || $this->isColWon($i) || $this->isRowWon($i);
         }
         $res = $res || $this->isMainDiagonWon();
@@ -106,7 +106,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->size; $i++) {
             if($square != $this->getSquare($row, $i)) {
                 return false;
             }
@@ -120,7 +120,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->size; $i++) {
             if($square != $this->getSquare($i, $col)) {
                 return false;
             }
@@ -134,7 +134,7 @@ class Board
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i < 3; $i++) {
+        for($i = 1; $i < $this->size; $i++) {
             if($square != $this->getSquare($i, $i)) {
                 return false;
             }
@@ -146,7 +146,7 @@ class Board
     {
         //To fix second diagonal indices
         $row = 0;
-        $col = 2;
+        $col = $this->size - 1;
         $square = $this->getSquare($row, $col);
         if(self::NOTHING == $square) {
             return false;
@@ -167,6 +167,22 @@ class Board
     public function getGrid()
     {
         return $this->grid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param mixed $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
     }
 
 
