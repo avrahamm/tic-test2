@@ -144,12 +144,17 @@ class Board
 
     public function isSecondDiagonWon()
     {
-        $square = $this->getSquare(0, 2);
+        //To fix second diagonal indices
+        $row = 0;
+        $col = 2;
+        $square = $this->getSquare($row, $col);
         if(self::NOTHING == $square) {
             return false;
         }
-        for($i = 1; $i >= 0; $i--) {
-            if($square != $this->getSquare($i, $i)) {
+        $row++;
+        $col--;
+        for(;$col >= 0; $row++,$col--) {
+            if($square != $this->getSquare($row, $col)) {
                 return false;
             }
         }

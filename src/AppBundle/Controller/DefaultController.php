@@ -58,10 +58,18 @@ class DefaultController extends Controller
 
     public function endAction()
     {
-        //TODO! fix1: 'o' instead 'x' is shown in end message
-        // TODO! fix: second diagonal 'o' doesn't end the game.
         $message = '';
         $game = $this->get('app.model.game')->getGame();
+        $gameState = $game->getState();
+
+        // sanity checks
+        if ( Game::STATE_NEW == $gameState ) {
+            return $this->redirectToRoute('start');
+        }
+        if ( Game::STATE_IN_PLAY == $gameState ) {
+            return $this->redirectToRoute('play',
+                array('row' => GAME::INFINITY_INDEX, 'col' => GAME::INFINITY_INDEX));
+        }
 
         if(Game::STATE_TIE == $game->getState()) {
             $message = 'Game Over: tie! how boring!';

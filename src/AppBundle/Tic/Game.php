@@ -20,6 +20,7 @@ class Game
     const STATE_IN_PLAY = 1;
     const STATE_TIE = 2;
     const STATE_WON = 3;
+    const INFINITY_INDEX = 10000;
 
     public function start()
     {
