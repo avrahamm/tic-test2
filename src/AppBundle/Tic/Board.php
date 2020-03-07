@@ -17,6 +17,7 @@ class Board
     const NOTHING = '';
     const O = 'o';
     const X = 'x';
+    const VICTORY = 'victory';
 
     /**
      * Board constructor.
@@ -51,12 +52,13 @@ class Board
 
     public function getSquare($row, $col)
     {
-        return $this->grid[$row][$col];
+        $cell = &$this->grid[$row][$col];
+        return $cell['val'];
     }
 
     public function setSquare($row, $col, $val)
     {
-        $this->grid[$row][$col] = $val;
+        $this->grid[$row][$col] = array('val'=> $val, 'status' =>'');
         return $this->getSquare($row, $col);
     }
 
@@ -94,10 +96,19 @@ class Board
         $res = false;
         for($i = 0; $i < $this->size; $i++) {
             $res = $res || $this->isColWon($i) || $this->isRowWon($i);
+            if( $res) {
+                return $res;
+            }
         }
         $res = $res || $this->isMainDiagonWon();
         $res = $res || $this->isSecondDiagonWon();
         return $res;
+    }
+
+    private function setSquareStatus($row,$col,$status)
+    {
+        $cell = &$this->grid[$row][$col];
+        $cell['status'] = $status;
     }
 
     public function isRowWon($row)
@@ -110,6 +121,11 @@ class Board
             if($square != $this->getSquare($row, $i)) {
                 return false;
             }
+        }
+
+        // set winning cells status
+        for($i = 0; $i < $this->size; $i++) {
+            $this->setSquareStatus($row, $i,Board::VICTORY);
         }
         return true;
     }
@@ -125,6 +141,12 @@ class Board
                 return false;
             }
         }
+
+        // set winning cells status
+        for($i = 0; $i < $this->size; $i++) {
+            $this->setSquareStatus($i, $col,Board::VICTORY);
+        }
+
         return true;
     }
 
@@ -138,6 +160,11 @@ class Board
             if($square != $this->getSquare($i, $i)) {
                 return false;
             }
+        }
+
+        // set winning cells status
+        for($i = 0; $i < $this->size; $i++) {
+            $this->setSquareStatus($i, $i,Board::VICTORY);
         }
         return true;
     }
@@ -158,6 +185,14 @@ class Board
                 return false;
             }
         }
+
+        // set winning cells status
+        $row = 0;
+        $col = $this->size - 1;
+        for(;$col >= 0; $row++,$col--) {
+            $this->setSquareStatus($row, $col,Board::VICTORY);
+        }
+
         return true;
     }
 
