@@ -86,6 +86,18 @@ class Board
         return true;
     }
 
+    public function getEmptySquare()
+    {
+        for($i = 0; $i < $this->size; $i++) {
+            for($j = 0; $j < $this->size; $j++) {
+                if(self::NOTHING == $this->getSquare($i, $j)) {
+                    return array($i, $j);
+                }
+            }
+        }
+        return null;
+    }
+
     public function loadBoard($grid)
     {
         $this->grid = $grid;

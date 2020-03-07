@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Tic\Board;
 use AppBundle\Tic\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +55,22 @@ class DefaultController extends Controller
             'messages' => $messages,
             'grid' => $game->getBoard()->getGrid(),
             'currentPlayer' => $game->getCurrentPlayer(),
-            'size' => $game->getBoard()->getSize()
+            'size' => $game->getBoard()->getSize(),
+            'nextMoveLocation' => $this->getNextMoveLocation($game)
         ));
+    }
+
+    private function getNextMoveLocation(Game $game)
+    {
+        if( $game->getCurrentPlayer() == Board::X) {
+            return '';
+        }
+        // generate next move for 'o'
+        $nextGameStep = $game->getBoard()->getEmptySquare();
+        $row = $nextGameStep[0];
+        $col = $nextGameStep[1];
+        $nextMoveLocation = $this->generateUrl('play', array('row' => $row, 'col' => $col));
+        return $nextMoveLocation;
     }
 
     private function getMessages($row, $col)

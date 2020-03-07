@@ -11,5 +11,11 @@
     {% include 'AppBundle:Board:currentPlayer.html.twig' with grid %}
     {{ include('AppBundle:Board:controls.html.twig', { 'size': size }) }}
     {{ include('AppBundle:Board:buttons.html.twig') }}
+    {{ include('AppBundle:Board:nextMove.html.twig') }}
 
 {% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/game.js') }}"></script>
+{% endblock javascripts %}
