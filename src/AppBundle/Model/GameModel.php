@@ -74,4 +74,9 @@ class GameModel
         $this->game->start($size);
         $this->storeGame();
     }
+
+    public function restoreGame(string $gameJson)
+    {
+        $this->session->set('game',$gameJson );
+    }
 }

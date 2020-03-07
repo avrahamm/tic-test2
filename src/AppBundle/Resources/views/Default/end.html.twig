@@ -5,5 +5,7 @@
 
     end: {{ message }}<br/>
     <a href="{{ path('start', {'size': size}) }}">start</a>
+
+    {{ include('AppBundle:Board:buttons.html.twig') }}
 {% endblock body %}
 

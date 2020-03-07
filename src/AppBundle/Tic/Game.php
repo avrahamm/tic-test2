@@ -20,7 +20,9 @@ class Game
     const STATE_IN_PLAY = 1;
     const STATE_TIE = 2;
     const STATE_WON = 3;
-    const INFINITY_INDEX = 10000;
+    const SAVE_GAME_INDEX = 10001;
+    const RESTORE_GAME_INDEX = 10002;
+    const IN_PLAY_INDEX = 10000;
 
     public function start($size=3)
     {
