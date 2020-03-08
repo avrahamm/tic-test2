@@ -1,16 +1,16 @@
--- SOLUTION parts.<br/>
+--SOLUTION parts.<br/>
 
-- Fixed bugs - <br/>
+--Fixed bugs - <br/>
   indexes and 2nd diagonal winning.<br/>
--- New features: <br/>
+--New features: <br/>
 board size, <br/>
 Save and Restore from DB,<br/>
 human or computer mode.<br/>
 
--- Design <br/>
+--Design <br/>
 added colors and emphasized winning squares.
 
--- Code description <br/>
+--Code description <br/>
 You will see in default.yml all the route I added. <br/>
 Briefly, start route contains size for board size and mode - either human or computer. <br/>
 
@@ -23,7 +23,7 @@ Game json is saved and retrieved from DB table game has only one row for that js
 <br/>
 <br/>
 
--- DB setup description <br/>
+--DB setup description <br/>
 You will need to set up tou mysql or whatever credentials in parameters.yml file <br/>
 For example: <br/>
 parameters:<br/>
