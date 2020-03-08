@@ -10,6 +10,10 @@ human or computer mode.<br/>
 --Design <br/>
 added colors and emphasized winning squares.
 
+-- I have worked on XAMP on Windows 10, 
+it looked like that
+http://localhost/JobExams/caveret/tic-test/web/start/4/computer
+
 **Code description <br/>
 
 You will see in default.yml all the route I added. <br/>
