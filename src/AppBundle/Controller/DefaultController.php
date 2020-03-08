@@ -16,16 +16,17 @@ class DefaultController extends Controller
         );
     }
 
-    public function startAction($size)
+    public function startAction(int $size,string $mode)
     {
-        $this->get('app.model.game')->startGame($size);
+        $this->get('app.model.game')->startGame($size,$mode);
         $game = $this->get('app.model.game')->getGame();
 
         return $this->render(
             'AppBundle:Default:start.html.twig', array(
             'grid' => $game->getBoard()->getGrid(),
             'currentPlayer' => $game->getCurrentPlayer(),
-            'size' => $size
+            'size' => $size,
+            'mode' => $mode,
         ));
     }
 
@@ -56,12 +57,17 @@ class DefaultController extends Controller
             'grid' => $game->getBoard()->getGrid(),
             'currentPlayer' => $game->getCurrentPlayer(),
             'size' => $game->getBoard()->getSize(),
+            'mode' => $game->getMode(),
             'nextMoveLocation' => $this->getNextMoveLocation($game)
         ));
     }
 
     private function getNextMoveLocation(Game $game)
     {
+        if( $game->getMode() == Game::HUMAN_MODE) {
+            return null;
+        }
+
         if( $game->getCurrentPlayer() == Board::X) {
             return '';
         }

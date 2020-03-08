@@ -17,5 +17,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/game.js') }}"></script>
+    {% if mode == 'computer' %}
+        <script src="{{ asset('js/game.js') }}"></script>
+    {% endif %}
 {% endblock javascripts %}

@@ -15,6 +15,7 @@ class Game
     private $board;
 
     private $currentPlayer;
+    private $mode;
 
     const STATE_NEW = 0;
     const STATE_IN_PLAY = 1;
@@ -23,11 +24,14 @@ class Game
     const SAVE_GAME_INDEX = 10001;
     const RESTORE_GAME_INDEX = 10002;
     const IN_PLAY_INDEX = 10000;
+    const HUMAN_MODE = 'human';
+    const COMPUTER_MODE = 'computer';
 
-    public function start($size=3)
+    public function start($size=3,$mode= GAME::HUMAN_MODE)
     {
         $this->board = new Board($size);
         $this->currentPlayer = Board::X;
+        $this->mode = $mode;
     }
 
     public function isMoveLegal($row, $col)
@@ -129,12 +133,20 @@ class Game
         $this->currentPlayer = $currentPlayer;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
 
     public function serialize()
     {
         $res = array(
             'grid' => $this->board->getGrid(),
             'size' => $this->board->getSize(),
+            'mode' => $this->mode,
             'currentPlayer' => $this->currentPlayer
         );
 
@@ -148,6 +160,7 @@ class Game
         $this->board->setSize($data['size']);
         $this->board->loadBoard($data['grid']);
         $this->currentPlayer = $data['currentPlayer'];
+        $this->mode = $data['mode'];
     }
 
 }

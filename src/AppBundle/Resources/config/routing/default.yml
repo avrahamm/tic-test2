@@ -3,8 +3,8 @@ default:
     defaults: { _controller: "AppBundle:Default:index" }
 
 start:
-    path: /start/{size}
-    defaults: { _controller: "AppBundle:Default:start", size: 3 }
+    path: /start/{size}/{mode}
+    defaults: { _controller: "AppBundle:Default:start", size: 3, mode: human }
 
 play:
     path: /play/{row}-{col}
